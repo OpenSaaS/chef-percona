@@ -30,6 +30,10 @@ socket           = <%= node["percona"]["server"]["socket"] %>
 nice             = <%= node["percona"]["server"]["nice"] %>
 open-files-limit = <%= node["percona"]["server"]["open_files_limit"] %>
 
+### logging
+log-error=/var/log/mysql/error.log
+####
+
 [mysqld]
 #
 # * Basic Settings
@@ -60,6 +64,7 @@ wsrep_slave_threads            = <%= node["percona"]["cluster"]["wsrep_slave_thr
 wsrep_cluster_name             = <%= node["percona"]["cluster"]["wsrep_cluster_name"] %>
 wsrep_sst_method               = <%= node["percona"]["cluster"]["wsrep_sst_method"] %>
 wsrep_node_name                = <%= node["percona"]["cluster"]["wsrep_node_name"] %>
+wsrep_sst_receive_address      = <%= node["percona"]["server"]["bind_address"] %>
 innodb_locks_unsafe_for_binlog = <%= node["percona"]["cluster"]["innodb_locks_unsafe_for_binlog"] %>
 innodb_autoinc_lock_mode       = <%= node["percona"]["cluster"]["innodb_autoinc_lock_mode"] %>
 
@@ -117,7 +122,11 @@ query_cache_size  = <%= node["percona"]["server"]["query_cache_size"] %>
 #general_log    = /var/log/mysql/mysql.log
 #
 # Error logging goes to syslog due to /etc/mysql/conf.d/mysqld_safe_syslog.cnf.
-#
+### logging
+log-error=/var/log/mysql/error.log
+####
+
+
 # Here you can see queries with especially long duration
 #log_slow_queries = /var/log/mysql/mysql-slow.log
 #long_query_time = 2
